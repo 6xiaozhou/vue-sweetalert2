@@ -6,60 +6,64 @@
     <br />
 
     <div class="row">
-      <button @click="simple" class="btn btn-outline-primary col s12 m3" type="button">simple</button>
-      <button @click="success" class="btn btn-outline-primary col s12 m3" type="button">success</button>
-      <button @click="error" class="btn btn-outline-primary col s12 m3" type="button">error</button>
-      <button @click="toastTopEnd" class="btn btn-outline-primary col s12 m3" type="button">toast top end</button>
+      <button @click="showAlert('simple')" class="btn btn-outline-primary col s12 m3" type="button">simple</button>
+      <button @click="showAlert('success')" class="btn btn-outline-primary col s12 m3" type="button">success</button>
+      <button @click="showAlert('error')" class="btn btn-outline-primary col s12 m3" type="button">error</button>
+      <button @click="showAlert('toast')" class="btn btn-outline-primary col s12 m3" type="button">toast top end</button>
     </div>
 
-    <a href="https://sweetalert2.github.io" class="doc-link" target="_blank">Sweetalert2 documentation</a>
+    <a href="https://sweetalert2.github.io" class="doc-link" target="_blank" rel="noopener noreferrer">Sweetalert2 documentation</a>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { SweetAlertIcon, SweetAlertOptions } from 'sweetalert2';
+
+interface AlertConfig extends SweetAlertOptions {
+  type?: string;
+}
 
 export default defineComponent({
-  data() {
-    return {
-      msg: 'Welcome to Vue-Sweetalert2 example',
-      description: 'This is TypeScript component in Vue 3',
-    };
-  },
+  setup() {
+    const msg = 'Welcome to Vue-Sweetalert2 example';
+    const description = 'This is TypeScript component in Vue 3';
 
-  methods: {
-    simple() {
-      this.$swal('Hello world!');
-    },
-
-    success() {
-      this.$swal({
-        icon: 'success',
+    const alerts: Record<string, AlertConfig> = {
+      simple: { text: 'Hello world!' },
+      success: {
+        icon: 'success' as SweetAlertIcon,
         title: 'Hello',
         text: 'Hello brave new world!',
-      });
-    },
-
-    error() {
-      this.$swal({
-        icon: 'error',
+      },
+      error: {
+        icon: 'error' as SweetAlertIcon,
         title: 'Oops...',
         text: 'Something went wrong!',
-      });
-    },
-
-    toastTopEnd() {
-      this.$swal({
+      },
+      toast: {
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
         timer: 3000,
-
-        icon: 'success',
+        icon: 'success' as SweetAlertIcon,
         title: 'Hi man',
         text: 'is a good day!',
-      });
-    },
-  },
+      }
+    };
+
+    const showAlert = (type: string) => {
+      const config = alerts[type];
+      if (config) {
+        return this.$swal(config);
+      }
+    };
+
+    return {
+      msg,
+      description,
+      showAlert
+    };
+  }
 });
 </script>
