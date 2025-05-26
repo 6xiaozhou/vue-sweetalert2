@@ -94,6 +94,7 @@ a {
 }
 .btn:disabled {
   opacity: 0.65;
+  cursor: not-allowed;
 }
 .btn:not(:disabled):not(.disabled) {
   cursor: pointer;
@@ -110,7 +111,7 @@ a {
   color: #fff;
 }
 .btn-outline-primary:focus {
-  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(65, 184, 130, 0.3);
 }
 .btn-outline-primary:disabled {
   background-color: transparent;
@@ -212,4 +213,11 @@ a {
 }
 .logo-img {
   max-width: 90%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
